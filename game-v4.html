@@ -1,0 +1,231 @@
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light only">
+<!--
+  T123: интерактивное приглашение Дмитрия для Лели.
+  Перед публикацией замените URL персонажей в DATE_GAME_CONFIG.
+  Для Telegram добавьте под этим T123 стандартную форму Tilda с полями:
+  date, time, mood, adventure, comment. Назначьте форме CSS-класс date-game-receiver
+  и подключите ее к Telegram в Настройки сайта -> Формы.
+-->
+<div id="date-game" class="dg">
+  <div class="dg__shell">
+    <div class="dg__progress"><i></i></div>
+    <div class="dg__traits" aria-live="polite"><span class="dg__trait-count" aria-label="Полученные характеристики"></span></div>
+    <button class="dg__sound" type="button" aria-label="Выключить звук" title="Выключить звук">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="dg__speaker" d="M4 9v6h4l5 4V5L8 9H4zm11.5 3a4.5 4.5 0 0 0-2-3.74v7.48A4.5 4.5 0 0 0 15.5 12zm-2-7.23v2.06a7 7 0 0 1 0 10.34v2.06a9 9 0 0 0 0-14.46z"/><path class="dg__slash" d="M5 4 20 19"/></svg>
+    </button>
+
+    <section class="dg__screen is-active" data-screen="1">
+      <div class="dg__plumbob" aria-hidden="true"></div>
+      <p class="dg__eyebrow">Загрузка новой истории</p>
+      <h1>Дмитрий приглашает Лелю на свидание</h1>
+      <div class="dg__loading-list" aria-live="polite">
+        <p>Загружаем романтику</p><p>Проверяем семейные шутки</p><p>Ищем Боба</p><p>Готовим новое свидание</p>
+      </div>
+      <button class="dg__button dg__start" data-next>Начать игру</button>
+    </section>
+
+    <section class="dg__screen" data-screen="2">
+      <img class="dg__character dg__character--right" data-art="invite" alt="Дмитрий приглашает на свидание">
+      <p class="dg__eyebrow">Новое задание</p>
+      <h2>Сходить на свидание с Дмитрием</h2>
+      <p id="dg-no-copy">Принять задание?</p>
+      <div class="dg__runway"><button id="dg-no" class="dg__button dg__button--no">Нет</button></div>
+    </section>
+
+    <section class="dg__screen" data-screen="3">
+      <p class="dg__eyebrow">Проверка воспоминаний</p>
+      <h2>Куда эти двое отправились в первый день знакомства?</h2>
+      <div class="dg__choices" data-quiz="listvyanka">
+        <button data-value="correct">В Листвянку</button>
+        <button>В ресторан</button>
+        <button>По домам, как нормальные люди</button>
+        <button>Сразу выбирать имена детям</button>
+      </div>
+      <p class="dg__feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="dg__screen" data-screen="4">
+      <p class="dg__eyebrow">Скрытый объект</p>
+      <h2>Найдите Боба</h2>
+      <p>Он где-то на этом экране. Больше подсказок не будет.</p>
+      <div class="dg__bob-field">
+        <button class="dg__bob" aria-label="Боб" title="Боб"><img data-art="jesus" alt="Иисус"></button>
+        <span>👨</span><span>👩</span><span>👴</span><span>👵</span><span>🧔</span><span>👨‍🦱</span><span>👩‍🦱</span><span>👨‍🦰</span><span>👩‍🦰</span><span>👨‍🦳</span><span>👩‍🦳</span><span>👨‍🦲</span><span>👩‍🦲</span><span>🧑</span><span>👦</span><span>👧</span><span>👨‍🎨</span><span>👩‍🎨</span><span>👨‍🍳</span><span>👩‍🍳</span><span>👨‍🚀</span><span>👩‍🚀</span><span>🤴</span><span>👸</span>
+      </div>
+      <p class="dg__feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="dg__screen" data-screen="5">
+      <p class="dg__eyebrow">Звуки персонажей</p>
+      <h2>Как понять, что Дмитрию действительно смешно?</h2>
+      <div class="dg__choices" data-quiz="snort">
+        <button>Он громко смеется</button>
+        <button>Он молча трясется</button>
+        <button data-value="correct">Он начинает хрюкать</button>
+        <button>Он говорит: «Это смешно»</button>
+      </div>
+      <p class="dg__feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="dg__screen" data-screen="6">
+      <p class="dg__eyebrow">Финансовая подготовка</p>
+      <h2>Введите код на большие деньги</h2>
+      <div class="dg__console"><span>&gt;</span><input id="dg-cheat" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="код"></div>
+      <button id="dg-cheat-submit" class="dg__button">Ввести код</button>
+      <p class="dg__feedback" aria-live="polite"></p>
+      <div class="dg__money">§ <b id="dg-money">0</b></div>
+    </section>
+
+    <section class="dg__screen" data-screen="7">
+      <img class="dg__studio-scene" data-art="studio" alt="Дмитрий и Леля в студии звукозаписи">
+      <p class="dg__eyebrow">Особое воспоминание</p>
+      <h2>Какой вопрос оказался последним?</h2>
+      <div class="dg__choices" data-quiz="proposal">
+        <button>Как тебе выпуск?</button>
+        <button>Запишем еще один дубль?</button>
+        <button data-value="correct">Ты выйдешь за меня замуж?</button>
+        <button>Куда пропал Боб?</button>
+      </div>
+      <p class="dg__feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="dg__screen" data-screen="8">
+      <p class="dg__eyebrow">Настройка свидания</p>
+      <h2>Какое настроение выбираем?</h2>
+      <div class="dg__choices" id="dg-mood">
+        <button data-value="Красиво и романтично">Красиво и романтично</button>
+        <button data-value="Весело и немного странно">Весело и немного странно</button>
+        <button data-value="Активно, а потом вкусно">Активно, а потом вкусно</button>
+        <button data-value="Полный сюрприз">Полный сюрприз, решай сам</button>
+      </div>
+      <label class="dg__range">Насколько персонаж готов к приключениям?
+        <input id="dg-adventure" type="range" min="1" max="5" value="3">
+        <span><i>Спокойно посидеть</i><i>В Листвянку ночью</i></span>
+      </label>
+      <button class="dg__button" id="dg-mood-next" disabled>Продолжить</button>
+    </section>
+
+    <section class="dg__screen" data-screen="9">
+      <p class="dg__eyebrow">Выбор времени</p>
+      <h2>Когда Леля готова исчезнуть из обычной жизни?</h2>
+      <form id="dg-date-form" class="dg__form" novalidate>
+        <label>Дата<input id="dg-date" name="date" type="date" required></label>
+        <label>Время<div class="dg__time-pick"><select id="dg-hour" aria-label="Часы" required></select><span>:</span><select id="dg-minute" aria-label="Минуты" required></select></div><input id="dg-time" name="time" type="hidden"></label>
+        <label>Комментарий<textarea id="dg-comment" name="comment" rows="3" placeholder="Если нужно что-то добавить"></textarea></label>
+        <button class="dg__button" type="submit">Запланировать свидание</button>
+      </form>
+      <p class="dg__feedback" aria-live="polite"></p>
+    </section>
+
+    <section class="dg__screen" data-screen="10">
+      <p class="dg__eyebrow">Задание принято</p>
+      <h2>Спасибо за игру!</h2>
+      <p>Свидание успешно запланировано.</p>
+      <p>В выбранный день вам сообщат точное время, место и дальнейшие инструкции.</p>
+      <p>А пока займитесь своими делами. В жизни они решаются чуть сложнее, чем в The Sims.</p>
+      <a id="dg-telegram" class="dg__button dg__telegram" href="#">Написать любимому</a>
+    </section>
+  </div>
+</div>
+
+<style>
+  html,body{margin:0!important;padding:0!important;width:100%;min-height:100%}
+  #date-game{--green:#35c759;--green2:#8bea42;--ink:#21313c;--muted:#6e7d86;--paper:#f7fbfc;--blue:#4e9ed6;color-scheme:light;forced-color-adjust:none;font-family:Arial,sans-serif;color:var(--ink)!important;background:linear-gradient(150deg,#e7f7f9,#f7fbfc 42%,#dff3e4);width:100vw;min-height:100svh;overflow:hidden}
+  #date-game *{box-sizing:border-box} .dg__shell{width:100vw;min-height:100svh;position:relative;margin:0;background:rgba(255,255,255,.68)}
+  .dg__progress{position:absolute;z-index:5;left:22px;right:22px;top:18px;height:6px;border-radius:9px;background:#d9e7e9;overflow:hidden}.dg__progress i{display:block;width:10%;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));transition:.4s}
+  .dg__traits{position:absolute;z-index:12;left:18px;top:35px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:none}.dg__trait-count{display:none;padding:5px 10px;border:1px solid rgba(62,163,70,.24);border-radius:999px;background:linear-gradient(180deg,#efffe9,#d9f7d1);color:#278d47;font-size:11px;font-weight:900;box-shadow:0 3px 9px rgba(28,111,52,.14)}.dg__trait-count.is-visible{display:block}.dg__trait{width:max-content;max-width:54vw;padding:6px 11px;border:1px solid rgba(62,163,70,.24);border-radius:999px;background:linear-gradient(180deg,#efffe9,#d9f7d1);color:#278d47;font-size:11px;font-weight:900;box-shadow:0 4px 12px rgba(28,111,52,.18);animation:dgTraitPop .65s cubic-bezier(.2,1.5,.4,1)}.dg__trait b{margin-left:3px}.dg__trait.is-leaving{opacity:0;transform:translateX(-18px);transition:.3s ease}@keyframes dgTraitPop{0%{opacity:0;transform:translateX(-35px) scale(.72)}65%{opacity:1;transform:translateX(5px) scale(1.04)}100%{transform:none}}
+  .dg__sound{position:absolute!important;z-index:30!important;right:17px;top:34px;display:grid!important;place-items:center;width:44px;height:44px;padding:0;border:2px solid rgba(255,255,255,.95);border-radius:50%;background:linear-gradient(180deg,#66dd68,#22a94a);box-shadow:0 4px 0 #148537,0 8px 16px rgba(22,80,42,.22);cursor:pointer}.dg__sound svg{display:block;width:23px;height:23px;overflow:visible}.dg__sound .dg__speaker{fill:#fff}.dg__sound .dg__slash{display:none;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round}.dg__sound.is-muted{background:linear-gradient(180deg,#8b979d,#5f696e)}.dg__sound.is-muted .dg__slash{display:block}.dg__sound:active{transform:translateY(2px);box-shadow:0 2px 0 #148537}
+  .dg__screen{display:none;width:100vw;height:100svh;min-height:calc(100vw * 16 / 9);max-height:100svh;overflow-y:auto;padding:70px 24px 34px;position:relative;flex-direction:column;justify-content:flex-end;align-items:stretch;text-align:center;background-size:cover;background-position:center;animation:dgIn .45s ease}.dg__screen.is-active{display:flex}
+  .dg__screen:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,25,38,.03) 25%,rgba(9,25,38,.12) 62%,rgba(9,25,38,.38) 100%);pointer-events:none}
+  .dg__screen>*{position:relative;z-index:2}.dg__screen[data-screen="1"]{justify-content:flex-end}.dg__card{position:relative;z-index:3;width:100%;max-height:52svh;overflow-y:auto;margin-top:auto;padding:14px 16px 16px;color:#21313c!important;background:#f7fafc!important;background-image:linear-gradient(180deg,#fff 0%,#e9eef3 100%)!important;border:2px solid #fff;border-radius:20px;box-shadow:0 4px 0 rgba(79,93,108,.28),0 10px 20px rgba(12,30,40,.22)}.dg__screen[data-screen="1"] .dg__card{max-height:48svh;margin-top:auto;margin-bottom:2svh}.dg__screen[data-screen="2"] .dg__card{max-height:31svh;padding-top:18px}.dg__screen[data-screen="3"] .dg__card,.dg__screen[data-screen="5"] .dg__card,.dg__screen[data-screen="7"] .dg__card{max-height:44svh}.dg__screen[data-screen="4"] .dg__card,.dg__screen[data-screen="6"] .dg__card{max-height:42svh}.dg__screen[data-screen="8"] .dg__card{max-height:52svh}.dg__screen[data-screen="9"] .dg__card{max-height:54svh}.dg__screen[data-screen="10"] .dg__card{max-height:37svh}
+  @keyframes dgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .dg h1,.dg h2{font-family:Trebuchet MS,Arial,sans-serif;line-height:1.08;margin:4px 0 8px}.dg h1{font-size:clamp(25px,6.8vw,38px)}.dg h2{font-size:clamp(21px,5.7vw,31px)}.dg p{font-size:14px;line-height:1.3;margin:4px auto;max-width:480px}.dg__eyebrow{display:table;margin:0 auto 4px!important;padding:5px 14px;background:linear-gradient(#d9eef7,#b7d8e8);border:2px solid #fff;border-radius:7px 7px 0 0;text-transform:uppercase;letter-spacing:.12em;font-weight:900!important;font-size:11px!important;color:#294858;box-shadow:0 4px 10px rgba(20,50,70,.16)}
+  .dg__button,.dg__choices button{appearance:none;border:0;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}.dg__button{margin:14px auto 0;padding:11px 20px;background:linear-gradient(180deg,#67da64,#23a849);color:#fff;box-shadow:0 4px 0 #148537,0 7px 14px rgba(22,133,55,.18)}.dg__button:active{transform:translateY(3px);box-shadow:0 2px 0 #148537}.dg__button:disabled{filter:grayscale(1);opacity:.5;cursor:not-allowed}
+  .dg__choices{display:grid;gap:7px;margin:10px auto 0;width:100%;max-width:470px}.dg__choices button{padding:9px 13px;background:linear-gradient(180deg,#fff,#edf0f3);color:#316ca5;border:1px solid #c9d0d7;box-shadow:0 2px 0 rgba(95,105,115,.28),0 4px 8px rgba(33,49,60,.07)}.dg__choices button:hover,.dg__choices button.is-selected{color:#176f44;border-color:#55bd72;background:linear-gradient(180deg,#f9fff9,#dff5e4)}.dg__feedback{min-height:34px;font-size:13px!important;font-weight:700;color:#278d47}
+  .dg__plumbob{width:62px;height:94px;margin:0 auto 20px;background:linear-gradient(135deg,#9cff28 0 25%,#38c500 25% 55%,#138c00 55%);clip-path:polygon(50% 0,90% 45%,50% 100%,10% 45%);filter:drop-shadow(0 8px 8px rgba(25,140,0,.25));animation:dgFloat 2s ease-in-out infinite}@keyframes dgFloat{50%{transform:translateY(-9px) rotate(2deg)}}
+  .dg__character{position:absolute!important;z-index:1!important;height:94svh;width:auto;max-width:none;object-fit:contain;object-position:center top;opacity:1;top:3svh;bottom:auto;filter:drop-shadow(0 13px 14px rgba(20,35,45,.28));animation:dgSlide .65s ease both}.dg__character--right{right:-2%}@keyframes dgSlide{from{transform:translateX(55%);opacity:0}to{transform:none;opacity:1}}.dg__runway{height:100px;position:relative;overflow:hidden}.dg__button--no{position:absolute;left:50%;top:22px;transform:translateX(-50%);margin:0;white-space:nowrap}.dg__button--no:active{transform:translateX(-50%)}
+  .dg__bob-field{height:310px;position:relative;margin-top:8px;border:2px dashed #cbdcdf;border-radius:22px;background:#f4f7f8!important;overflow:hidden}.dg__bob-field span{position:absolute;display:grid;place-items:center;width:1.45em;height:1.45em;border:3px solid #d9b55b;border-radius:50%;background:radial-gradient(circle,#fff9dc 48%,#d5a944 50% 67%,#fff2b8 69%);box-shadow:0 3px 0 #a87c25,0 6px 12px rgba(31,48,55,.22);color:#21313c!important;line-height:1;text-shadow:none;user-select:none}.dg__bob{position:absolute;left:78%;top:48%;z-index:3;border:0;background:transparent!important;cursor:pointer;padding:4px}.dg__bob img{display:block;width:54px;height:54px;object-fit:cover;border-radius:50%;box-shadow:0 3px 0 #b7892a,0 7px 15px rgba(31,48,55,.3)}
+  .dg__console{display:flex;align-items:center;gap:8px;background:#163222;color:#9cff7d;border-radius:10px;padding:14px 16px;margin:20px auto 0;max-width:430px;width:100%;font:18px monospace}.dg__console input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#caffb8;font:inherit}.dg__money{font-size:32px;color:#278d47;margin-top:15px;font-weight:900}
+  .dg__studio-scene{display:none}
+  .dg__range{display:block;text-align:left;font-size:13px;font-weight:700;margin:14px auto 0;max-width:470px}.dg__range input{width:100%;accent-color:var(--green);margin:10px 0 3px}.dg__range span{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}.dg__range i{font-style:normal;max-width:42%}
+  .dg__form{display:grid;gap:14px;text-align:left;margin:20px auto 0;width:100%;max-width:470px}.dg__form label{font-size:13px;font-weight:800}.dg__form input,.dg__form textarea,.dg__form select{display:block;width:100%;margin-top:6px;padding:12px;border:2px solid #dbe9eb;border-radius:10px;background:#fff!important;font:16px Arial;color:var(--ink)!important;outline:0}.dg__form input:focus,.dg__form textarea:focus,.dg__form select:focus{border-color:var(--green)}.dg__form .dg__button{width:100%;margin-top:4px}.dg__time-pick{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.dg__time-pick span{font-size:24px;font-weight:900;padding-top:5px}.dg__time-pick select{text-align:center;text-align-last:center}
+  .dg__moodlet{display:table;width:auto;max-width:100%;margin:13px auto 0;padding:11px 18px;border-radius:999px;background:#e8f8e4;color:#278d47;font-weight:800;box-shadow:0 5px 14px rgba(39,141,71,.12)}
+  .dg__telegram{display:inline-block;text-decoration:none;margin-top:15px}.dg__money-rain{position:absolute!important;z-index:1!important;inset:0;overflow:hidden;pointer-events:none;background:radial-gradient(circle at 50% 30%,#245d35,#0d2d1b 70%)}.dg__money-rain span{position:absolute;top:-14%;color:#79f06d;font-weight:900;text-shadow:0 3px 0 #167b2d,0 8px 18px rgba(0,0,0,.28);animation:dgMoney linear infinite}@keyframes dgMoney{to{transform:translateY(122svh) rotate(520deg)}}
+  .dg__screen[data-screen="2"] h2:before{content:"ДМИТРИЙ";display:block;width:max-content;margin:0 auto 10px;padding:6px 18px;border-radius:7px 7px 0 0;background:linear-gradient(#d9eef7,#b7d8e8);border:2px solid #fff;font-size:12px;letter-spacing:.12em;color:#294858}.dg__screen[data-screen="2"] .dg__eyebrow{display:none}
+  .dg__loading-list{min-height:82px;margin:5px auto 0}.dg__loading-list p{display:none;margin:3px auto;font-size:12px;font-weight:700;color:#477260}.dg__loading-list p.is-visible{display:block;animation:dgLoad .35s ease}.dg__loading-list p.is-done:before{content:"✓ ";color:#23a849}@keyframes dgLoad{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.dg__start{visibility:hidden;opacity:0;transition:.35s}.dg__start.is-ready{visibility:visible;opacity:1}
+  .dg__screen[data-screen="7"]{background-position:center}.dg__screen[data-screen="7"]:before{background:linear-gradient(180deg,rgba(12,8,20,.03) 30%,rgba(12,8,20,.5) 100%)}
+  .dg__eyebrow,.dg__screen[data-screen="2"] h2:before{display:none!important}
+  .date-game-receiver{display:none!important}
+  @media(min-width:700px){#date-game,.dg__shell,.dg__screen{width:min(100vw,calc(100svh * 9 / 16))}.dg__shell{margin:auto}.dg__screen{padding-left:50px;padding-right:50px}}
+</style>
+
+<script>
+(function(){
+  const DATE_GAME_CONFIG={
+    inviteImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/dmitry-invite.png',
+    studioImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/studio.jpg',
+    finalScene:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/final-scene.jpg',
+    neighborhoodImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/neighborhood.jpg',
+    nightImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/listvyanka-night-right.jpg',
+    livingImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/living.jpg',
+    laughScene:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/laugh-scene.jpg',
+    jesusIcon:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/jesus-icon.jpg',
+    moneyImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/money-room.jpg',
+    dateImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/date-terrace.jpg',
+    scheduleImage:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/schedule-lake.jpg',
+    introImage:'https://miromanof.github.io/sims-date/assets/intro-cars.png',
+    musicUrl:'https://raw.githubusercontent.com/miromanof/sims-date/main/assets/suburban-whimsy.mp3',
+    receiverSelector:'.date-game-receiver form',
+    calendarTitle:'Свидание с Дмитрием',
+    calendarLocation:'Секретная локация',
+    telegramUsername:'dimamiroman',
+    telegramMessage:'Я все прошла'
+  };
+  const root=document.getElementById('date-game'); if(!root)return;
+  const state={screen:1,mood:'',adventure:'3',date:'',time:'',comment:''};
+  const music=new Audio();music.src=DATE_GAME_CONFIG.musicUrl;music.loop=true;music.volume=.32;music.preload='auto';music.setAttribute('playsinline','');music.load();
+  let soundOn=true,audioContext=null;
+  const soundButton=root.querySelector('.dg__sound'),traits=root.querySelector('.dg__traits'),traitCount=root.querySelector('.dg__trait-count');
+  const playTone=(frequency=520,duration=.08,type='sine',volume=.035)=>{if(!soundOn)return;try{audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type=type;oscillator.frequency.setValueAtTime(frequency,audioContext.currentTime);gain.gain.setValueAtTime(volume,audioContext.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration);oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start();oscillator.stop(audioContext.currentTime+duration)}catch(e){}};
+  const playClick=()=>{playTone(430,.055,'sine',.025);setTimeout(()=>playTone(620,.065,'sine',.018),35)};
+  const playReward=()=>{playTone(520,.11,'triangle',.04);setTimeout(()=>playTone(690,.13,'triangle',.035),90);setTimeout(()=>playTone(870,.18,'triangle',.03),190)};
+  const awardedTraits=new Set();let rewardCount=0;
+  const addTrait=(name,points='+10')=>{if(awardedTraits.has(name))return;awardedTraits.add(name);rewardCount++;traits.querySelectorAll('.dg__trait').forEach(x=>x.remove());traitCount.textContent='★ '+rewardCount;traitCount.classList.add('is-visible');const item=document.createElement('div');item.className='dg__trait';item.innerHTML=name+' <b>'+points+'</b>';traits.appendChild(item);playReward();setTimeout(()=>{item.classList.add('is-leaving');setTimeout(()=>item.remove(),320)},2300)};
+  const startMusic=()=>{if(soundOn&&music.paused)music.play().catch(()=>{})};
+  root.addEventListener('pointerdown',startMusic,{once:true});
+  soundButton.addEventListener('click',()=>{soundOn=!soundOn;soundButton.classList.toggle('is-muted',!soundOn);soundButton.setAttribute('aria-label',soundOn?'Выключить звук':'Включить звук');soundButton.title=soundOn?'Выключить звук':'Включить звук';if(soundOn){startMusic();playClick()}else music.pause()});
+  root.addEventListener('click',e=>{if(e.target.closest('button,a'))playClick()});
+  root.querySelectorAll('.dg__screen').forEach(screen=>{const card=document.createElement('div');card.className='dg__card';[...screen.children].filter(el=>!el.matches('.dg__character,.dg__studio-scene,.dg__pair')).forEach(el=>card.appendChild(el));screen.appendChild(card)});
+  const moneyRain=document.createElement('div');moneyRain.className='dg__money-rain';const moneySymbols=['§','§','§','§','◆','◇','▰'];for(let i=0;i<88;i++){const s=document.createElement('span');s.textContent=moneySymbols[Math.floor(Math.random()*moneySymbols.length)];s.style.left=(-3+Math.random()*103)+'%';s.style.fontSize=(18+Math.random()*54)+'px';s.style.animationDuration=(2.7+Math.random()*4.5)+'s';s.style.animationDelay=(-Math.random()*7)+'s';s.style.opacity=(.5+Math.random()*.5);moneyRain.appendChild(s)}root.querySelector('[data-screen="6"]').appendChild(moneyRain);
+  root.querySelector('[data-art="invite"]').src=DATE_GAME_CONFIG.inviteImage;
+  root.querySelector('[data-art="studio"]').src=DATE_GAME_CONFIG.studioImage;
+  root.querySelector('[data-art="jesus"]').src=DATE_GAME_CONFIG.jesusIcon;
+  root.querySelectorAll('.dg__screen').forEach(x=>x.style.backgroundImage='url("'+DATE_GAME_CONFIG.neighborhoodImage+'")');
+  root.querySelector('[data-screen="1"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.introImage+'")';
+  root.querySelector('[data-screen="3"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.nightImage+'")';
+  root.querySelector('[data-screen="4"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.livingImage+'")';
+  root.querySelector('[data-screen="5"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.laughScene+'")';
+  root.querySelector('[data-screen="7"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.studioImage+'")';
+  root.querySelector('[data-screen="8"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.dateImage+'")';
+  root.querySelector('[data-screen="9"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.scheduleImage+'")';
+  root.querySelector('[data-screen="10"]').style.backgroundImage='url("'+DATE_GAME_CONFIG.finalScene+'")';
+  const hour=root.querySelector('#dg-hour'),minute=root.querySelector('#dg-minute');hour.innerHTML='<option value="">Часы</option>'+Array.from({length:24},(_,i)=>'<option value="'+String(i).padStart(2,'0')+'">'+String(i).padStart(2,'0')+'</option>').join('');minute.innerHTML='<option value="">Минуты</option>'+['00','15','30','45'].map(v=>'<option value="'+v+'">'+v+'</option>').join('');
+  const loadingRows=[...root.querySelectorAll('.dg__loading-list p')],startButton=root.querySelector('.dg__start');loadingRows.forEach((row,i)=>setTimeout(()=>{row.classList.add('is-visible');if(i>0)loadingRows[i-1].classList.add('is-done');if(i===loadingRows.length-1)setTimeout(()=>{row.classList.add('is-done');startButton.classList.add('is-ready')},650)},450+i*700));
+  root.querySelectorAll('.dg__bob-field span').forEach((item,i)=>{const col=i%6,row=Math.floor(i/6);item.style.left=(2+col*18+(i%2?3:-1))+'%';item.style.top=(3+row*25+((i*7)%8))+'%';item.style.fontSize=(18+((i*11)%18))+'px';item.style.transform='rotate('+(-12+((i*17)%25))+'deg)'});
+  const tgButton=root.querySelector('#dg-telegram'),tgName=DATE_GAME_CONFIG.telegramUsername.replace(/^@/,'').trim();if(tgName&&tgName.indexOf('PASTE_')!==0){tgButton.href='https://t.me/'+encodeURIComponent(tgName)+'?text='+encodeURIComponent(DATE_GAME_CONFIG.telegramMessage);tgButton.target='_blank';tgButton.rel='noopener'}else{tgButton.addEventListener('click',e=>{e.preventDefault();alert('Добавьте Telegram username Дмитрия в настройки сайта.')})}
+  const show=n=>{root.querySelectorAll('.dg__screen').forEach(x=>x.classList.toggle('is-active',+x.dataset.screen===n));state.screen=n;root.querySelector('.dg__progress i').style.width=(n*10)+'%';window.scrollTo({top:root.offsetTop,behavior:'smooth'});};
+  root.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>{music.play().catch(()=>{});addTrait('Романтика');show(state.screen+1)}));
+
+  const noBtn=root.querySelector('#dg-no'),noCopy=root.querySelector('#dg-no-copy');
+  const noTexts=['Похоже, кнопка сломалась.','Игра не поддерживает этот вариант.','Дмитрий старался. Нажмите уже нормально.','Боб все видит.'];let noCount=0,noReady=false;
+  noBtn.addEventListener('click',e=>{e.preventDefault();if(noReady){addTrait('Настойчивость');show(3);return}noCopy.textContent=noTexts[noCount];noBtn.textContent=['Точно нет','Я подумаю','Все еще нет','Ладно'][noCount];noBtn.style.left=(30+Math.random()*40)+'%';noBtn.style.top=(8+Math.random()*48)+'px';noCount++;if(noCount===4){noReady=true;noBtn.textContent='Ладно, конечно';noBtn.style.left='50%';noBtn.style.top='24px'}});
+
+  root.querySelectorAll('[data-quiz]').forEach(group=>group.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const fb=group.parentElement.querySelector('.dg__feedback');if(b.dataset.value==='correct'){const ok={listvyanka:'Верно. Первая встреча, первая поездка и сразу ночь в Листвянке. Осторожность: 0.',snort:'Редкий звук разблокирован: счастливое хрюканье.',proposal:'Ответ был принят. Началась новая глава этой игры.'}[group.dataset.quiz],reward={listvyanka:['Авантюрность','+10'],snort:['Чувство юмора','+10'],proposal:['Любовь всей жизни','+100']}[group.dataset.quiz];fb.textContent=ok;addTrait(reward[0],reward[1]);setTimeout(()=>show(state.screen+1),1300)}else{fb.textContent='Память персонажа временно недоступна. Попробуйте еще раз.';playTone(180,.16,'sawtooth',.025)}}));
+  root.querySelector('.dg__bob').addEventListener('click',()=>{root.querySelector('[data-screen="4"] .dg__feedback').textContent='Боб найден. Можно продолжать игру.';addTrait('Наблюдательность');setTimeout(()=>show(5),1200)});
+  root.querySelector('#dg-cheat-submit').addEventListener('click',()=>{const input=root.querySelector('#dg-cheat'),fb=root.querySelector('[data-screen="6"] .dg__feedback');if(input.value.trim().toLowerCase()==='motherlode'){fb.textContent='Бюджет свидания разблокирован.';addTrait('Благосостояние','+50 000');let n=0,t=setInterval(()=>{n=Math.min(50000,n+2500);root.querySelector('#dg-money').textContent=n.toLocaleString('ru-RU');if(n===50000){clearInterval(t);setTimeout(()=>show(7),900)}},55)}else{fb.textContent='Код не найден. Вспомните, как строили особняки без единого рабочего дня.';playTone(180,.16,'sawtooth',.025)}});
+  root.querySelector('#dg-mood').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;root.querySelectorAll('#dg-mood button').forEach(x=>x.classList.remove('is-selected'));b.classList.add('is-selected');state.mood=b.dataset.value;root.querySelector('#dg-mood-next').disabled=false});
+  root.querySelector('#dg-mood-next').addEventListener('click',()=>{state.adventure=root.querySelector('#dg-adventure').value;addTrait('Настроение');show(9)});
+  root.querySelector('#dg-date-form').addEventListener('submit',e=>{e.preventDefault();const fb=root.querySelector('[data-screen="9"] .dg__feedback');state.date=root.querySelector('#dg-date').value;if(!state.date){fb.textContent='Календарь завис. Выберите дату для свидания.';return}if(!hour.value||!minute.value){fb.textContent='Временной портал не настроен. Выберите часы и минуты.';return}fb.textContent='';state.time=hour.value+':'+minute.value;root.querySelector('#dg-time').value=state.time;state.comment=root.querySelector('#dg-comment').value;const values={date:state.date,time:state.time,mood:state.mood,adventure:state.adventure,comment:state.comment};if(window.parent!==window){window.parent.postMessage({type:'date-game-submit',values:values},'*')}else{const receiver=document.querySelector(DATE_GAME_CONFIG.receiverSelector);if(receiver){Object.entries(values).forEach(([k,v])=>{const input=receiver.querySelector('[name="'+k+'"]');if(input)input.value=v});const submit=receiver.querySelector('[type="submit"]');if(submit)submit.click()}}addTrait('Заинтригована');show(10)});
+})();
+</script>
